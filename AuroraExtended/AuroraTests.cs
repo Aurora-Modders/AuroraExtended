@@ -17,7 +17,10 @@ namespace AuroraExtended
             Aurora = aurora;
             Aurora.PostIncrement += OnPostIncrement;
 
-            Aurora.AddButton("T1", ButtonClicked);
+            for (int i = 1; i <= 5; i++)
+            {
+                Aurora.AddButton($"T{i}", ButtonClicked);
+            }
         }
 
         private static void OnPostIncrement(object sender, EventArgs e)

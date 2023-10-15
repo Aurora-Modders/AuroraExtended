@@ -15,7 +15,8 @@ namespace AuroraExtended
         private static List<KeyValuePair<Button, Action<Button>>> Buttons { get; } = new List<KeyValuePair<Button, Action<Button>>>();
         private static Size ButtonSize { get; set; }
         private static Point ButtonOffset { get; set; }
-        private static bool AddedButtons { get; set; } = false;
+        private static bool AddedButtonsIncrement { get; set; } = false;
+        private static bool AddedButtonsPulse { get;set; } = false;
 
         internal static void Initialize(Harmony harmony, AuroraExtended aurora)
         {
@@ -62,22 +63,34 @@ namespace AuroraExtended
 
         private static void ResumeLayoutPrefix(Control __instance)
         {
-            if (AddedButtons)
-            {
-                return;
-            }
-
             if (Buttons.Count == 0)
             {
                 return;
             }
 
-            if (__instance.Name != "tblIncrement" && __instance.Name != "tblSubPulse")
+            if (__instance.Name == "tblIncrement")
+            {
+                if (AddedButtonsIncrement)
+                {
+                    return;
+                }
+
+                AddedButtonsIncrement = true;
+
+            }
+            else if (__instance.Name == "tblSubPulse")
+            {
+                if (AddedButtonsPulse)
+                {
+                    return;
+                }
+
+                AddedButtonsPulse = true;
+            }
+            else
             {
                 return;
             }
-
-            AddedButtons = true;
 
             var index = __instance.Name == "tblIncrement" ? 0 : 1;
             var count = 0;
