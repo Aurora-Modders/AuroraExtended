@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AuroraExtended.Framework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -10,6 +11,24 @@ namespace AuroraExtended.Framework
 {
     public static class Helpers
     {
+        public static bool TryParseAuroraDate(string date_string, out DateTime date)
+        {
+            date_string = date_string.Trim();
+
+            if (DateTime.TryParseExact(date_string, "F", null, System.Globalization.DateTimeStyles.None, out date))
+            {
+                return true;
+            }
+            else if (DateTime.TryParseExact(date_string, "D", null, System.Globalization.DateTimeStyles.None, out date))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static IEnumerable<Control> EnumerateChildren(this Control control)
         {
             foreach (var c in control.Controls.Cast<Control>())

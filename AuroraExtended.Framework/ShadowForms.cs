@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using AuroraExtended.Framework;
+using HarmonyLib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AuroraExtended
+namespace AuroraExtended.Framework
 {
     public static class ShadowForms
     {

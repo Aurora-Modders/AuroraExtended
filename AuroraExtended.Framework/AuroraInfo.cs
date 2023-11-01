@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuroraExtended
+namespace AuroraExtended.Framework
 {
     public static class AuroraInfo
     {
@@ -16,7 +16,7 @@ namespace AuroraExtended
 
             for (int start = 0; start < pieces.Count; start++)
             {
-                for (int end = start; end < pieces.Count; end++)
+                for (int end = start + 1; end <= pieces.Count; end++)
                 {
                     sb.Clear();
 

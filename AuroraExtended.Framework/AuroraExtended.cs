@@ -1,6 +1,6 @@
-﻿using AuroraPatch;
+﻿using AuroraExtended.Framework;
+using AuroraPatch;
 using HarmonyLib;
-using Lib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,12 +31,14 @@ namespace AuroraExtended.Framework
         {
             Instance = this;
             SetupFormEvents(harmony);
+            AuroraInterface.Initialize(harmony, this);
         }
 
         protected override void Started()
         {
+            TacticalMap.FormClosing += OnTacticalClosing;
             SetupIncrements();
-            AuroraForms.Initialize(this);
+            ShadowForms.Initialize(this);
             AuroraInterface.Initialize(this);
         }
 
@@ -135,13 +137,16 @@ namespace AuroraExtended.Framework
             FormShown?.Invoke(sender, e);
         }
 
-        private static void FormConstructorPostfix(object __instance)
+        private void OnTacticalClosing(object sender, EventArgs e)
         {
-            var form = __instance as Form;
-            form.Paint += Instance.OnFormPaint;
-            form.Shown += Instance.OnFormShown;
+            var button = TacticalMap.EnumerateChildren().OfType<Button>().Single(x => x.Name == "cmdToolbarSave");
+            button.PerformClick();
         }
 
-
+        private static void FormConstructorPostfix(Form __instance)
+        {
+            __instance.Paint += Instance.OnFormPaint;
+            __instance.Shown += Instance.OnFormShown;
+        }
     }
 }
